@@ -968,6 +968,7 @@ install(FILES
 install(PROGRAMS
   ceph_common.sh
   ceph-osd-prestart.sh
+  systemd-rdma-settings.sh
   DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/ceph)
 
 install(PROGRAMS
