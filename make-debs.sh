@@ -17,6 +17,7 @@
 set -xe
 
 base=${1:-/tmp/release}
+sign_key=${2:-x}
 codename=$(lsb_release -sc)
 releasedir=$base/$(lsb_release -si)/WORKDIR
 rm -fr $releasedir
@@ -80,6 +81,7 @@ Codename: $codename
 Suite: stable
 Components: main
 Architectures: i386 amd64 source
+SignWith: $sign_key
 EOF
 if [ ! -e conf ]; then
     ln -s $codename/conf conf
