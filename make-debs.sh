@@ -86,7 +86,21 @@ EOF
 if [ ! -e conf ]; then
     ln -s $codename/conf conf
 fi
-reprepro --basedir $(pwd) include $codename WORKDIR/*.changes
+# must do this interactively
+#reprepro --basedir $(pwd) include $codename WORKDIR/*.changes
+BASE=$(pwd)
+cat > load_repo.sh <<EOF
+#!/bin/sh
+cd $BASE
+
+# remove old repo entries
+for i in db dists pool; do rm \`find \$i -type f\`; done
+
+# rebuild repo
+reprepro --basedir $BASE include $codename WORKDIR/*.changes
+EOF
+chmod a+r load_repo.sh
+
 #
 # teuthology needs the version in the version file
 #
